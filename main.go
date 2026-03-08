@@ -47,10 +47,10 @@ func (cq *CirqularQueue) Dequeue() (int, bool) {
 	return value, true
 }
 
-func (cq *CirqularQueue) PeekQueue() [size]int {
+func (cq *CirqularQueue) PeekQueue() *[size]int {
 	result := [size]int{}
 	if cq.IsEmpty() {
-		return result
+		return &result
 	}
 	i := cq.front
 	j := 0
@@ -70,7 +70,7 @@ func (cq *CirqularQueue) PeekQueue() [size]int {
 		j++
 	}
 
-	return result
+	return &result
 }
 
 func main() {
@@ -81,7 +81,7 @@ func main() {
 
 	// Enqueue
 	fmt.Println()
-	fmt.Println(cq.PeekQueue())
+	fmt.Println(*cq.PeekQueue())
 	if cq.Enqueue(0) {
 		fmt.Println("Added:", 0)
 	}
@@ -97,7 +97,7 @@ func main() {
 	if cq.Enqueue(4) {
 		fmt.Println("Added:", 4)
 	}
-	fmt.Println(cq.PeekQueue())
+	fmt.Println(*cq.PeekQueue())
 	fmt.Println()
 
 	// Dequeue
@@ -119,7 +119,7 @@ func main() {
 	if v, ok := cq.Dequeue(); ok {
 		fmt.Println("Deleted:", v)
 	}
-	fmt.Println(cq.PeekQueue())
+	fmt.Println(*cq.PeekQueue())
 	fmt.Println()
 
 	// Enqueue
@@ -133,14 +133,14 @@ func main() {
 	if cq.Enqueue(3) {
 		fmt.Println("Added:", 3)
 	}
-	fmt.Println(cq.PeekQueue())
+	fmt.Println(*cq.PeekQueue())
 	fmt.Println()
 
 	// Dequeue
 	if v, ok := cq.Dequeue(); ok {
 		fmt.Println("Deleted:", v)
 	}
-	fmt.Println(cq.PeekQueue())
+	fmt.Println(*cq.PeekQueue())
 	fmt.Println()
 
 	// Enqueue
@@ -150,35 +150,35 @@ func main() {
 	if cq.Enqueue(5) {
 		fmt.Println("Added:", 5)
 	}
-	fmt.Println(cq.PeekQueue())
+	fmt.Println(*cq.PeekQueue())
 	fmt.Println()
 
 	/*
 
-	[0 0 0 0]
-	Added: 0
-	Added: 1
-	Added: 2
-	Added: 3
-	[0 1 2 3]
+		[0 0 0 0]
+		Added: 0
+		Added: 1
+		Added: 2
+		Added: 3
+		[0 1 2 3]
 
-	Deleted: 0
-	Deleted: 1
-	Deleted: 2
-	Deleted: 3
-	[0 0 0 0]
+		Deleted: 0
+		Deleted: 1
+		Deleted: 2
+		Deleted: 3
+		[0 0 0 0]
 
 
-	Added: 1
-	Added: 2
-	Added: 3
-	[1 2 3 0]
+		Added: 1
+		Added: 2
+		Added: 3
+		[1 2 3 0]
 
-	Deleted: 1
-	[2 3 0 0]
+		Deleted: 1
+		[2 3 0 0]
 
-	Added: 3
-	Added: 5
-	[2 3 3 5]
+		Added: 3
+		Added: 5
+		[2 3 3 5]
 	*/
 }
