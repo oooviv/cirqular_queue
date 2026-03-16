@@ -15,7 +15,7 @@ func (cq *cirqularQueue) isEmpty() bool {
 }
 
 func (cq *cirqularQueue) isFull() bool {
-	return (cq.rear+1)%size == cq.front
+	return (cq.rear+1)&(size-1) == cq.front
 }
 
 func (cq *cirqularQueue) Enqueue(v int) bool {
@@ -25,7 +25,7 @@ func (cq *cirqularQueue) Enqueue(v int) bool {
 	if cq.front == -1 {
 		cq.front = 0
 	}
-	cq.rear = (cq.rear + 1) % size
+	cq.rear = (cq.rear + 1) & (size - 1)
 	cq.array[cq.rear] = v
 
 	return true
@@ -41,7 +41,7 @@ func (cq *cirqularQueue) Dequeue() (int, bool) {
 		cq.front = -1
 		cq.rear = -1
 	} else {
-		cq.front = (cq.front + 1) % size
+		cq.front = (cq.front + 1) & (size - 1)
 	}
 	return value, true
 }
@@ -58,7 +58,7 @@ func (cq *cirqularQueue) PeekQueue() [size]int {
 		if i == cq.rear {
 			break
 		}
-		i = (i + 1) % size
+		i = (i + 1) & (size - 1)
 		j++
 	}
 	return array
